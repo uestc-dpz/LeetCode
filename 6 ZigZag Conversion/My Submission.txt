@@ -1,0 +1,32 @@
+public class Solution {
+    public String convert(String s, int nRows) {
+        if(s == null)
+            return null;
+        if(nRows>=s.length() || nRows == 1)
+            return s;
+        
+        StringBuilder sb = new StringBuilder();
+        char[] source = s.toCharArray();
+        int maxStep = 2*nRows - 2;
+        int nextElementIndex = 0;
+        int totalLength = s.length()-1;
+        
+        for(int index = 0; index<nRows; index++) {
+            int prevIndex = index;
+            int subStep = maxStep - 2*index;
+            nextElementIndex = index;
+            while(nextElementIndex <= totalLength) {
+                sb.append(source[nextElementIndex]);
+                if(index == 0 || index == nRows-1)
+                    nextElementIndex = prevIndex + maxStep;
+                else{
+                   nextElementIndex = prevIndex + subStep;
+                   subStep = maxStep - subStep;
+                }
+                prevIndex = nextElementIndex;
+            }
+        }
+        
+        return sb.toString();
+    }
+}
